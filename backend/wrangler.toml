@@ -7,3 +7,5 @@ compatibility_flags = ["nodejs_compat"]
 binding = "DB"
 database_name = "task-manager-db"
 database_id = "3bc696d2-224c-4a46-a8ec-7a3cec5d2086"
+migrations_dir = "drizzle/migrations"
+
