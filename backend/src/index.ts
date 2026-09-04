@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { secureHeaders } from "hono/secure-headers";
 import auth from "./routes/auth";
+import tasksRoute from "./routes/tasks";
 
 export type Env = {
     DB: D1Database;
@@ -19,6 +20,7 @@ app.use("*", cors({
 
 app.get("/", (c) => c.json({ message: "Task Manager API" }));
 app.route("/api/auth", auth);
+app.route("/api/tasks", tasksRoute);
 
 export default app;
 
