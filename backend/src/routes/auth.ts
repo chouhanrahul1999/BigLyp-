@@ -7,6 +7,7 @@ import { createDb } from "../db";
 import { users } from "../db/schema";
 import type { Env } from "../index";
 import { registerSchema, loginSchema } from "../db/validators";
+import { authMiddleware } from "../middleware/auth";
 
 
 const auth = new Hono<{ Bindings: Env }>();
@@ -68,12 +69,19 @@ auth.post("/login", async (c) => {
 
     const token = await new SignJWT({ sub: user.id, name: user.name, email: user.email })
         .setProtectedHeader({ alg: "HS256" })
-        .setExpirationTime("7d")
+        .setExpirationTime("24h")
         .sign(secret);
 
     return c.json({ token });
 })
 
-
+auth.get("/me", authMiddleware, (c) => {
+    const user = c.get("user");
+    return c.json({
+    id: user.sub,
+    name: user.name,
+    email: user.email,
+  });
+})
 
 export default auth;
