@@ -13,9 +13,14 @@ const app = new Hono<{ Bindings: Env }>();
 
 app.use("*", secureHeaders());
 app.use("*", cors({
-    origin: ["http://localhost:3000"],
-    allowMethods: ["GET", "POST", "PATCH", "DELETE"],
-    allowHeaders: ["Content-Type", "Authorization"],
+  origin: [
+    "http://localhost:3000",
+    "https://e85c1e4b.task-manager-frontend-an3.pages.dev",
+    "https://83ab1ced.task-manager-frontend-an3.pages.dev",
+    "https://task-manager-frontend-an3.pages.dev",
+  ],
+  allowMethods: ["GET", "POST", "PATCH", "DELETE"],
+  allowHeaders: ["Content-Type", "Authorization"],
 }));
 
 app.get("/", (c) => c.json({ message: "Task Manager API" }));
