@@ -18,6 +18,7 @@ app.use("*", cors({
     "https://e85c1e4b.task-manager-frontend-an3.pages.dev",
     "https://83ab1ced.task-manager-frontend-an3.pages.dev",
     "https://6beebbdb.task-manager-frontend-an3.pages.dev",
+    "https://63465d58.task-manager-frontend-an3.pages.dev",
     "https://task-manager-frontend-an3.pages.dev",
   ],
   allowMethods: ["GET", "POST", "PATCH", "DELETE"],

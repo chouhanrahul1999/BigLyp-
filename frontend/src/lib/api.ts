@@ -2,22 +2,22 @@ import type { User, Task, AuthResponse, TaskStatus } from "@/types";
 
 const BASE_URL = process.env["NEXT_PUBLIC_API_URL"] ?? "";
 
-async function request<T>(
-    path: string,
-    options: RequestInit = {}
-): Promise<T> {
+type ErrorBody = string | { fieldErrors?: Record<string, string[]>; formErrors?: string[] };
+
+async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
     const res = await fetch(`${BASE_URL}${path}`, {
         ...options,
-        headers: {
-            "Content-Type": "application/json",
-            ...options.headers,
-        },
+        headers: { "Content-Type": "application/json", ...options.headers },
     });
 
-    const data = await res.json() as T & { error?: string };
+    const data = await res.json() as T & { error?: ErrorBody };
 
     if (!res.ok) {
-        throw new Error(data.error ?? "Something went wrong");
+        const err = data.error;
+        if (!err) throw new Error("Something went wrong");
+        if (typeof err === "string") throw new Error(err);
+        const msgs = [...Object.values(err.fieldErrors ?? {}).flat(), ...(err.formErrors ?? [])];
+        throw new Error(msgs.join(", ") || "Something went wrong");
     }
 
     return data;
