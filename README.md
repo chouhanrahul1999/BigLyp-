@@ -3,7 +3,7 @@
 A full-stack task management application built with Cloudflare Workers, D1, Next.js, and Drizzle ORM.
 
 ## Live URLs
-- Frontend: https://6beebbdb.task-manager-frontend-an3.pages.dev
+- Frontend: https://63465d58.task-manager-frontend-an3.pages.dev
 - Backend API: https://task-manager-api.rahul-task-manager.workers.dev
 
 ## Tech Stack
